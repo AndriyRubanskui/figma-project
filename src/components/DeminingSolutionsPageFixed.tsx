@@ -1,35 +1,54 @@
+import { useNavigate } from "react-router-dom";
+
 import svgPaths from "../imports/svg-fklmw1hrgv";
 import { ImageWithFallback } from "./figma/ImageWithFallback";
 import { CompanyLogo } from "./CompanyLogo";
-import { AnimatedSection, AnimatedText, AnimatedImage, StaggerContainer, StaggerItem } from "./animations/AnimatedSection";
+import {
+  AnimatedSection,
+  AnimatedText,
+  AnimatedImage,
+  StaggerContainer,
+  StaggerItem,
+} from "./animations/AnimatedSection";
 import { useState } from "react";
+import ScrollToTop from "./ScrollToTop";
 
-interface NavigationProps {
-  onNavigate: (page: string) => void;
-}
+function NavigationLinks() {
+  const navigate = useNavigate();
 
-function NavigationLinks({ onNavigate }: NavigationProps) {
   return (
     <div className="flex flex-row gap-6 items-start justify-start text-[14px] text-left">
       <div className="relative shrink-0">
-        <p 
+        <p
           className="underline block leading-[1.5] cursor-pointer hover:text-gray-600 transition-colors"
-          onClick={() => onNavigate('about')}
+          onClick={() => navigate("/about-us")}
         >
           About us
         </p>
       </div>
       <div className="relative shrink-0">
-        <p className="block leading-[1.5] cursor-pointer hover:text-gray-600 transition-colors">Our Services</p>
+        <p className="block leading-[1.5] cursor-pointer hover:text-gray-600 transition-colors">
+          Our Services
+        </p>
       </div>
       <div className="relative shrink-0">
-        <p className="block leading-[1.5] cursor-pointer hover:text-gray-600 transition-colors">Contact Us</p>
+        <p className="block leading-[1.5] cursor-pointer hover:text-gray-600 transition-colors">
+          Contact Us
+        </p>
       </div>
     </div>
   );
 }
 
-function MobileMenu({ isOpen, onToggle, onNavigate }: { isOpen: boolean; onToggle: () => void; onNavigate: (page: string) => void }) {
+function MobileMenu({
+  isOpen,
+  onToggle,
+}: {
+  isOpen: boolean;
+  onToggle: () => void;
+}) {
+  const navigate = useNavigate();
+
   return (
     <div className="md:hidden">
       <button
@@ -37,22 +56,38 @@ function MobileMenu({ isOpen, onToggle, onNavigate }: { isOpen: boolean; onToggl
         className="flex flex-col gap-1 p-2"
         aria-label="Toggle menu"
       >
-        <div className={`h-0.5 w-6 bg-black transition-transform ${isOpen ? 'rotate-45 translate-y-1.5' : ''}`} />
-        <div className={`h-0.5 w-6 bg-black transition-opacity ${isOpen ? 'opacity-0' : ''}`} />
-        <div className={`h-0.5 w-6 bg-black transition-transform ${isOpen ? '-rotate-45 -translate-y-1.5' : ''}`} />
+        <div
+          className={`h-0.5 w-6 bg-black transition-transform ${
+            isOpen ? "rotate-45 translate-y-1.5" : ""
+          }`}
+        />
+        <div
+          className={`h-0.5 w-6 bg-black transition-opacity ${
+            isOpen ? "opacity-0" : ""
+          }`}
+        />
+        <div
+          className={`h-0.5 w-6 bg-black transition-transform ${
+            isOpen ? "-rotate-45 -translate-y-1.5" : ""
+          }`}
+        />
       </button>
-      
+
       {isOpen && (
         <div className="absolute top-full left-0 right-0 bg-white border-t border-gray-200 p-4 z-50">
           <div className="flex flex-col gap-4">
-            <p 
+            <p
               className="underline block leading-[1.5] cursor-pointer hover:text-gray-600 transition-colors"
-              onClick={() => onNavigate('about')}
+              onClick={() => navigate("/about-us")}
             >
               About us
             </p>
-            <p className="block leading-[1.5] cursor-pointer hover:text-gray-600 transition-colors">Our Services</p>
-            <p className="block leading-[1.5] cursor-pointer hover:text-gray-600 transition-colors">Contact Us</p>
+            <p className="block leading-[1.5] cursor-pointer hover:text-gray-600 transition-colors">
+              Our Services
+            </p>
+            <p className="block leading-[1.5] cursor-pointer hover:text-gray-600 transition-colors">
+              Contact Us
+            </p>
           </div>
         </div>
       )}
@@ -60,19 +95,19 @@ function MobileMenu({ isOpen, onToggle, onNavigate }: { isOpen: boolean; onToggl
   );
 }
 
-function Navigation({ onNavigate }: NavigationProps) {
+function Navigation() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const navigate = useNavigate();
 
   return (
     <div className="flex flex-row items-start justify-between w-full relative">
-      <CompanyLogo onClick={() => onNavigate('home')} />
+      <CompanyLogo onClick={() => navigate("/")} />
       <div className="hidden md:block">
-        <NavigationLinks onNavigate={onNavigate} />
+        <NavigationLinks />
       </div>
-      <MobileMenu 
-        isOpen={isMobileMenuOpen} 
+      <MobileMenu
+        isOpen={isMobileMenuOpen}
         onToggle={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-        onNavigate={onNavigate}
       />
     </div>
   );
@@ -83,15 +118,18 @@ function HeroContent() {
     <div className="flex flex-col gap-6 w-full">
       <AnimatedText delay={0.2}>
         <div className="text-[32px] md:text-[48px] lg:text-[56px] font-bold leading-[1.2] w-full">
-          <h1 className="text-[48px]">Empowering Communities Through Safe Demining Solutions</h1>
+          <h1 className="text-[48px]">
+            Empowering Communities Through Safe Demining Solutions
+          </h1>
         </div>
       </AnimatedText>
       <AnimatedText delay={0.4}>
         <div className="text-[16px] md:text-[18px] leading-[1.5] w-full">
           <p>
-            Our humanitarian demining services ensure safe and secure environments for communities affected by landmines
-            and unexploded ordnance. We are dedicated to restoring land and lives through expert removal and clearance
-            operations.
+            Our humanitarian demining services ensure safe and secure
+            environments for communities affected by landmines and unexploded
+            ordnance. We are dedicated to restoring land and lives through
+            expert removal and clearance operations.
           </p>
         </div>
       </AnimatedText>
@@ -120,18 +158,21 @@ function EmailSignupForm() {
           </button>
         </div>
         <div className="text-[12px] leading-[1.5] mt-4">
-          <p>By clicking Sign Up you're confirming that you agree with our Terms and Conditions.</p>
+          <p>
+            By clicking Sign Up you're confirming that you agree with our Terms
+            and Conditions.
+          </p>
         </div>
       </div>
     </AnimatedSection>
   );
 }
 
-function HeroSection({ onNavigate }: NavigationProps) {
+function HeroSection() {
   return (
     <div className="bg-white px-4 md:px-8 lg:px-16 py-16 md:py-20 lg:py-28 w-full">
       <div className="max-w-[1280px] mx-auto w-full">
-        <Navigation onNavigate={onNavigate} />
+        <Navigation />
         <div className="mt-12 md:mt-20">
           <div className="flex flex-col lg:flex-row gap-8 lg:gap-20 items-center">
             <div className="flex-1 flex flex-col gap-8">
@@ -163,12 +204,16 @@ function VideoSection() {
             <div className="flex-1 flex flex-col gap-8">
               <div className="flex flex-col gap-6 w-full">
                 <div className="text-[32px] md:text-[48px] lg:text-[56px] font-bold leading-[1.2] w-full">
-                  <h2 className="text-[48px]">Empowering Communities Through Safe Demining Solutions</h2>
+                  <h2 className="text-[48px]">
+                    Empowering Communities Through Safe Demining Solutions
+                  </h2>
                 </div>
                 <div className="text-[16px] md:text-[18px] leading-[1.5] w-full">
                   <p>
-                    Our humanitarian demining services ensure safe land for communities affected by landmines and unexploded
-                    ordnance. We are dedicated to restoring hope and safety through expert removal and clearance operations.
+                    Our humanitarian demining services ensure safe land for
+                    communities affected by landmines and unexploded ordnance.
+                    We are dedicated to restoring hope and safety through expert
+                    removal and clearance operations.
                   </p>
                 </div>
               </div>
@@ -183,7 +228,11 @@ function VideoSection() {
               />
               <div className="absolute inset-0 bg-black bg-opacity-50 flex items-center justify-center">
                 <div className="w-16 h-16 cursor-pointer hover:scale-110 transition-transform">
-                  <svg className="w-full h-full" fill="none" viewBox="0 0 64 64">
+                  <svg
+                    className="w-full h-full"
+                    fill="none"
+                    viewBox="0 0 64 64"
+                  >
                     <path
                       clipRule="evenodd"
                       d={svgPaths.p229d4300}
@@ -202,12 +251,17 @@ function VideoSection() {
 }
 
 function NewsletterSignup() {
+  const navigate = useNavigate();
+
   return (
     <AnimatedSection animation="fadeUp">
       <div className="flex flex-col gap-6 w-full max-w-[500px]">
-        <CompanyLogo />
+        <CompanyLogo onClick={() => navigate("/")} />
         <div className="text-[16px] leading-[1.5]">
-          <p>Subscribe to our newsletter for the latest updates on features and releases.</p>
+          <p>
+            Subscribe to our newsletter for the latest updates on features and
+            releases.
+          </p>
         </div>
         <div className="flex flex-col gap-3">
           <div className="flex flex-col sm:flex-row gap-4 w-full">
@@ -227,7 +281,10 @@ function NewsletterSignup() {
             </button>
           </div>
           <div className="text-[12px] leading-[1.5]">
-            <p>By subscribing, you consent to our Privacy Policy and agree to receive updates.</p>
+            <p>
+              By subscribing, you consent to our Privacy Policy and agree to
+              receive updates.
+            </p>
           </div>
         </div>
       </div>
@@ -235,17 +292,23 @@ function NewsletterSignup() {
   );
 }
 
-function FooterLinks({ onNavigate }: NavigationProps) {
+function FooterLinks() {
+  const navigate = useNavigate();
+
   const quickLinks = [
-    { name: "About Us", action: () => onNavigate('about') },
+    { name: "About Us", action: () => navigate("/about-us") },
     { name: "Our Services", action: () => {} },
     { name: "Contact Us", action: () => {} },
     { name: "Blog News", action: () => {} },
-    { name: "Investors Info", action: () => {} }
+    { name: "Investors Info", action: () => {} },
   ];
-  
+
   const connectLinks = [
-    "Careers", "Partnerships", "FAQs", "Support", "Feedback"
+    "Careers",
+    "Partnerships",
+    "FAQs",
+    "Support",
+    "Feedback",
   ];
 
   const socialLinks = [
@@ -253,18 +316,20 @@ function FooterLinks({ onNavigate }: NavigationProps) {
     { name: "Instagram", icon: svgPaths.p3f3f55f0 },
     { name: "X", icon: svgPaths.p214d7500 },
     { name: "LinkedIn", icon: svgPaths.p2b170900 },
-    { name: "YouTube", icon: svgPaths.p35f23f00 }
+    { name: "YouTube", icon: svgPaths.p35f23f00 },
   ];
 
   return (
     <StaggerContainer className="flex-1 grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-10">
       <StaggerItem>
         <div className="flex flex-col gap-4">
-          <h3 className="text-[16px] font-semibold leading-[1.5]">Quick Links</h3>
+          <h3 className="text-[16px] font-semibold leading-[1.5]">
+            Quick Links
+          </h3>
           <div className="flex flex-col">
             {quickLinks.map((link) => (
               <div key={link.name} className="py-2">
-                <p 
+                <p
                   className="text-[14px] leading-[1.5] cursor-pointer hover:text-gray-600 transition-colors"
                   onClick={link.action}
                 >
@@ -275,28 +340,41 @@ function FooterLinks({ onNavigate }: NavigationProps) {
           </div>
         </div>
       </StaggerItem>
-      
+
       <StaggerItem>
         <div className="flex flex-col gap-4">
-          <h3 className="text-[16px] font-semibold leading-[1.5]">Connect With Us</h3>
+          <h3 className="text-[16px] font-semibold leading-[1.5]">
+            Connect With Us
+          </h3>
           <div className="flex flex-col">
             {connectLinks.map((link) => (
               <div key={link} className="py-2">
-                <p className="text-[14px] leading-[1.5] cursor-pointer hover:text-gray-600 transition-colors">{link}</p>
+                <p className="text-[14px] leading-[1.5] cursor-pointer hover:text-gray-600 transition-colors">
+                  {link}
+                </p>
               </div>
             ))}
           </div>
         </div>
       </StaggerItem>
-      
+
       <StaggerItem>
         <div className="flex flex-col gap-4">
-          <h3 className="text-[16px] font-semibold leading-[1.5]">Stay Connected</h3>
+          <h3 className="text-[16px] font-semibold leading-[1.5]">
+            Stay Connected
+          </h3>
           <div className="flex flex-col">
             {socialLinks.map((social) => (
-              <div key={social.name} className="flex items-center gap-3 py-2 cursor-pointer hover:text-gray-600 transition-colors">
+              <div
+                key={social.name}
+                className="flex items-center gap-3 py-2 cursor-pointer hover:text-gray-600 transition-colors"
+              >
                 <div className="w-6 h-6">
-                  <svg className="w-full h-full" fill="none" viewBox="0 0 24 24">
+                  <svg
+                    className="w-full h-full"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                  >
                     <path d={social.icon} fill="currentColor" />
                   </svg>
                 </div>
@@ -319,23 +397,29 @@ function FooterBottom() {
           <p>© 2024 Numo. All rights reserved.</p>
         </div>
         <div className="flex flex-wrap gap-6 text-[14px]">
-          <p className="underline cursor-pointer hover:text-gray-600 transition-colors">Privacy Policy</p>
-          <p className="underline cursor-pointer hover:text-gray-600 transition-colors">Terms of Use</p>
-          <p className="underline cursor-pointer hover:text-gray-600 transition-colors">Cookie Settings</p>
+          <p className="underline cursor-pointer hover:text-gray-600 transition-colors">
+            Privacy Policy
+          </p>
+          <p className="underline cursor-pointer hover:text-gray-600 transition-colors">
+            Terms of Use
+          </p>
+          <p className="underline cursor-pointer hover:text-gray-600 transition-colors">
+            Cookie Settings
+          </p>
         </div>
       </div>
     </div>
   );
 }
 
-function Footer({ onNavigate }: NavigationProps) {
+function Footer() {
   return (
     <div className="bg-white px-4 md:px-8 lg:px-16 py-16 md:py-20 w-full">
       <div className="max-w-[1280px] mx-auto w-full">
         <div className="flex flex-col gap-20">
           <div className="flex flex-col lg:flex-row gap-16 lg:gap-32">
             <NewsletterSignup />
-            <FooterLinks onNavigate={onNavigate} />
+            <FooterLinks />
           </div>
           <FooterBottom />
         </div>
@@ -344,12 +428,13 @@ function Footer({ onNavigate }: NavigationProps) {
   );
 }
 
-export default function DeminingSolutionsPage({ onNavigate }: NavigationProps) {
+export default function DeminingSolutionsPage() {
   return (
     <div className="min-h-screen">
-      <HeroSection onNavigate={onNavigate} />
+      <ScrollToTop />
+      <HeroSection />
       <VideoSection />
-      <Footer onNavigate={onNavigate} />
+      <Footer />
     </div>
   );
 }
